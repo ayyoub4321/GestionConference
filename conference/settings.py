@@ -63,7 +63,7 @@ ROOT_URLCONF = "conference.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR,'templetes'),],
+        "DIRS": [os.path.join(BASE_DIR,'templetes'),os.path.join(BASE_DIR,'.')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
