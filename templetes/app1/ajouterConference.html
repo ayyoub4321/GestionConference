@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <title>Gérer Conference</title>
+</head>
+<body>
+    
+    <form class="connection signUp ajouterSession" method="post">
+        
+        {% csrf_token %}
+        <a href="{% url 'conference' %}"><div class="icon"><i class="fa-solid fa-angles-left"></i></div></a>
+        
+        <h1>Ajouter conférence</h1>
+        <div class="boxSignUp">
+            <div class="boxinput">
+                <input type="text" name="nom" id="nom" placeholder=" " 
+                       {% if request.path|slice:":17" == "/modifierConference" %} 
+                           value="{{ conference.nom }}" 
+                       {% endif %}>
+                <span>Nom de conférence</span>
+            </div>
+            <div class="boxinput">
+                <input type="text" name="lieu" id="" placeholder=" " 
+                    {% if request.path|slice:":17" == "/modifierConference" %}
+                        value="{{ conference.lieu }}"
+                    {% endif %}>
+                <span>Lieu de conférence</span>
+            </div>
+            <div class="boxinput">
+                <input type="date" name="dateDebut" id="" placeholder=" "  
+                    {% if request.path|slice:":17" == "/modifierConference" %} 
+                        value="{{ conference.dateDebut|date:'Y-m-d' }}" 
+                    {% endif %}>
+                <span>Saisir Date Début</span>
+            </div>
+            <div class="boxinput">
+                <input type="date" name="dateFin" id="" placeholder=" "   
+                    {% if request.path|slice:":17" == "/modifierConference" %} 
+                        value="{{ conference.dateFin|date:'Y-m-d' }}"  
+                    {% endif %}>
+                <span>Saisir Date Fin</span>
+            </div>
+            <div class="boxinput">
+                {% if request.path|slice:":17" == "/modifierConference" %}
+                <textarea name="description" id="" placeholder="Saisir description" rows="5" required>{{ conference.them }}</textarea>
+                {% else %}
+                <textarea name="description" id="" placeholder="Saisir description" rows="5" required></textarea>
+                {% endif %}
+            </div>
+        </div>
+        <button class="buttonInput" type="submit"> 
+            {% if request.path|slice:":17" == "/modifierConference" %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+        </button>
+    </form>
+</body>
+</html>

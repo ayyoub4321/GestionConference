@@ -1,0 +1,95 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gérer Session</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+</head>
+<body>
+    <form class="connection signUp ajouterSession" method="post" onsubmit="return tousmarche()" >
+        {% csrf_token %}
+        <a href="{% url 'session' %}"><div class="icon"><i class="fa-solid fa-angles-left"></i></div></a>
+        <h1> 
+            {% if request.path|slice:':16' == '/modifierSession' %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+            Session
+        </h1>
+        <div class="boxSignUp">
+            <div class="boxinput"><input type="text" name="titre" id="" placeholder=" "  required {% if request.path|slice:':16' == '/modifierSession' %} value="{{session.titre}}" {% endif %}><span>Titre De session</span></div>
+            <div class="boxinput"><input type="date" name="date" id="conferenceDate"  min="{{conference.dateDebut}}" max="{{conference.dateDebut}}" placeholder=" " required {% if request.path|slice:':16' == '/modifierSession' %} value="{{session.date|date:'Y-m-d'}}" {% endif %}><span>saisir Date </span></div>
+            <div class="boxinput"><input type="time" name="heureDebut" id="" placeholder=" "  required {% if request.path|slice:':16' == '/modifierSession' %} value="{{session.heureDebut|time:'H:i:s'}}" {% endif %}><span>saisir Date Heur</span></div>
+            <div class="boxinput"><input type="time" name="heureFin" id="" placeholder=" "  required {% if request.path|slice:':16' == '/modifierSession' %} value="{{session.heureFin|time:'H:i:s'}}" {% endif %}><span>saisir Date Heur</span></div>
+            <div class="boxinput"><textarea  name="description" id="" placeholder="saisir description"  rows="5" required>{% if request.path|slice:':16' == '/modifierSession' %} {{session.description}} {% endif %}</textarea></div>
+            <div class="boxinput"><span class="select">choise  conference</span>
+                <select name="idConference" id="conferenceSelect" >
+                {% for conference in conferences %}<option value="{{conference.id}}" {% if conference.id == session.conference.id %} selected {% endif %}> {{conference.nom}}</option>{% endfor %}
+
+            </select></div>
+
+       <button class="buttonInput" type="submit"> 
+            {% if request.path|slice:':16' == '/modifierSession' %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+
+       </button>
+       
+</form>
+<script>
+    // Initialise avec les dates de la première conférence au chargement de la page
+    window.onload = function() {
+        var conferencesData = [
+            {% for conference in conferences %}
+                { "id": "{{ conference.id }}", "dateDebut": "{{ conference.dateDebut|date:'Y-m-d' }}", "dateFin": "{{ conference.dateFin|date:'Y-m-d' }}" },
+            {% endfor %}
+        ];
+
+        // Assigner les dates min et max de la première conférence
+        var firstConference = conferencesData[0];
+        var dateInput = document.getElementById("conferenceDate");
+        dateInput.min = firstConference.dateDebut;
+        dateInput.max = firstConference.dateFin;
+        dateInput.value = firstConference.dateFin; // Définir la valeur par défaut (dateFin de la première conférence)
+
+        console.log("Début : " + firstConference.dateDebut + "  Fin : " + firstConference.dateFin);
+    }
+
+    // Gérer le changement de sélection de conférence
+    document.getElementById("conferenceSelect").addEventListener("change", function() {
+        var selectedConferenceId = this.value;
+
+        // Créer un tableau JavaScript à partir des données Django
+        var conferencesData = [
+            {% for conference in conferences %}
+                { "id": "{{ conference.id }}", "dateDebut": "{{ conference.dateDebut|date:'Y-m-d' }}", "dateFin": "{{ conference.dateFin|date:'Y-m-d' }}" },
+            {% endfor %}
+        ];
+
+        // Trouver la conférence sélectionnée
+        var selectedConference = conferencesData.find(function(conference) {
+            return conference.id == selectedConferenceId;
+        });
+
+        console.log("Début : " + selectedConference?.dateDebut + "  Fin : " + selectedConference?.dateFin);
+
+        if (selectedConference) {
+            var dateInput = document.getElementById("conferenceDate");
+            dateInput.min = selectedConference.dateDebut;
+            dateInput.max = selectedConference.dateFin;
+            // Si tu veux que la date par défaut soit celle de la conférence sélectionnée
+            dateInput.value = selectedConference.dateFin;
+        }
+    });
+</script>
+
+
+</body>
+</html>

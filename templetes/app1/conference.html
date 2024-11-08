@@ -1,0 +1,40 @@
+{% block content %}
+{% if conferences %}
+<table class="DashbordTable">
+    <thead>
+        <th>Num</th>
+        <th>Nom Conférence</th>
+        <th>Lieu</th>
+        <th>Thème</th>
+        <th>Date Début</th>
+        <th>Date Fin</th>
+        <th>Sessions</th>
+        {% if role == 'GEST' %}
+        <th>Modifier</th>
+        <th>Supprimer</th> 
+        {% endif %}
+    </thead>
+    <tbody>
+        {% for conference in conferences %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ conference.nom }}</td>
+            <td>{{ conference.lieu }}</td>
+            <td>{{ conference.them }}</td>
+            <td>{{ conference.dateDebut }}</td>
+            <td>{{ conference.dateFin }}</td>
+            <td>Afficher sessions</td> 
+            {% if role == 'GEST' %}
+            <td><a href="{% url 'modifierConference' id=conference.id %}">Modifier</a></td>
+            <td><a href="{% url 'suprimerConference' id=conference.id %}">Supprimer</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+{% else %}
+<div class="rien">
+    <h1>Pas de conférence à afficher</h1>
+    
+</div>
+{% endif %}
+{% endblock content %}

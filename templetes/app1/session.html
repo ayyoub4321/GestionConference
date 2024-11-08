@@ -1,0 +1,39 @@
+{% block content %}
+{% if sessions %}
+<table class="DashbordTable">
+    <thead>
+        <th>Titre</th>
+        <th>Date</th>
+        <th>Heure Début</th>
+        <th>Heure Fin</th>
+        <th>Description</th>
+        <th>Conférence</th>
+        {% if role == 'GEST' %}
+        <td>Intervenant</td>
+        <td>Modifier</td>
+        <td>Supprimer</td> 
+        {% endif %}
+    </thead>
+    <tbody>
+        {% for session in sessions %}
+        <tr>
+            <td>{{session.titre}}</td>
+            <td>{{session.date}}</td>
+            <td>{{session.heureDebut}}</td>
+            <td>{{session.heureFin}}</td>
+            <td>{{session.description|slice:':30'}}</td>
+            <td>{{session.conference.nom}}</td>
+            {% if role == 'GEST' %}
+            <td><a href="{% url 'intervenant' id=session.id %}">Intervenants</a>
+            <td><a href="{% url 'modifierSession' id=session.id %}" ><i class="fa-solid fa-pen"></i></a></td>
+            <td><a href="{% url 'supprimerSession' id=session.id %}"><i class="fa-solid fa-trash"></i></a></td>
+            {% endif %}
+        </tr> 
+        {% endfor %}
+    </tbody>
+{% else %}
+    <div class="rien">
+        <h1>Pas de session affichée</h1>
+    </div>
+{% endif %}
+{% endblock content %}

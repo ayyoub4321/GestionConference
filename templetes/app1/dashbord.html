@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashbord</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="{% static 'image/logo.jpeg' %}" alt="Logo"><img src="{% static 'image/logo.jpeg' %}" alt="Logo"></div>
+        
+    </header>
+    <div class="saidbar" id="saidbar">
+        <div class="head">
+        <h2>Dashbord </h2>
+        <div class="display"  onclick="display(this)"><i class="fa-solid fa-angles-left"></i></div>
+            <nav>
+               <a href="{% url 'conference' %}"><li>Conference</li></a>
+               <a href="{% url 'session' %}"> <li>Session</li></a>
+            </nav>
+        </div>
+        <a href="{% url 'deconnection' %}"> <div class="deconnection"> <li><i class="fa-solid fa-angles-left"></i> deconnection</li></div></a>
+    </div>
+    <main class="marginTop" id="mainTable">
+        <div class="display"  onclick="display(this)"><i class="fa-solid fa-angles-left"></i></div>
+        <div class="info">
+            <a href="
+            {% if request.path == '/session' %}
+                 {% url 'ajouterSession' %}
+            {% elif request.path == '/conference' %}
+                {% url 'ajouterConference' %}
+            {% elif request.path|slice:':12' == '/intervenant' %}
+                {% url 'ajouterIntervenant' id=session.id %}
+            {%endif %}" class="ajouter">
+            
+                Ajouter
+            </a>
+             <form action="" method="get" class="chercher" ><input type="text" placeholder="searsh " name="searsh"> <button type="submit">O</button></from>
+        </div>
+        {% if request.path == '/conference'  %}
+       {% include 'app1/conference.html' %}
+       {%  elif request.path == '/session'  %}
+       {% include 'app1/session.html' %}
+       {% elif request.path|slice:':12' == '/intervenant' %}
+       {% include 'app1/intervenant.html' %}
+       {% endif %}
+
+</main>
+<script>
+    function display(icon){
+        // this.innerHTML="ay"
+        // text=document.getElementById().contains
+        text=icon.innerHTML
+        if (text=='<i class="fa-solid fa-angles-left"></i>'){
+            document.getElementById('saidbar').style.transform = "translateX(-100%)";
+            icon.innerHTML='<i class="fa-solid fa-angles-right"></i>'
+            icon.style.transform = "translateX(39px)";
+             document.getElementById('mainTable').style.width=97+'%'
+            
+        
+        }else{
+            document.getElementById('saidbar').style.transform = "translateX(0)";
+            icon.style.transform = "translateX(0)";
+            icon.innerHTML='<i class="fa-solid fa-angles-left"></i>'
+           document.getElementById('mainTable').style.width='calc(100% - var(--saidbar))'
+        }
+        
+    }
+</script>
+</body>
+</html>

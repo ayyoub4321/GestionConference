@@ -1,0 +1,155 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    list-style: none;
+}
+/* color variable */
+:root{
+    --mainColor:#00a9fe;
+    --saidbar:260px;
+    --header:60px;
+    --backgroun: linear-gradient(to top, #5d4157, #a8caba);
+}
+
+body{
+    position: relative;
+    background-color: #212121;
+    /* background-image: url('../image/conference1.jpg'); */
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+:not(body){
+    z-index: 2;
+}
+.logo img{
+width: 250px;
+height: 100%;
+}
+body.index::before{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    height:100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+
+}
+header{
+    height:var(--header);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to top, #5d4157, #a8caba);
+    position:fixed;
+    top: 0;
+
+}
+.marginTop{
+    margin-top: var(--header);
+    width: calc(100% - var(--saidbar));
+    float: right;
+    transition:width 0.6s linear;
+}
+header .logo{
+    height: 90%;
+    overflow: hidden;
+    flex-basis: 100%;
+}
+header .logo{
+    flex-basis:100%;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.connect{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+}
+.connect a.login{
+    padding: 13px 47px;
+    background-color: var(--mainColor);
+}
+.saidbar{
+    position: fixed;
+    top: var(--header);
+    height: calc(100% - var(--header));
+    width: var(--saidbar);
+    background: linear-gradient(to bottom, #5d4157, #a8caba);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    transition: transform 0.6s linear;
+
+}
+.display{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: wheat;
+    padding: 10px;
+    
+}
+.saidbar h2{
+    margin-bottom: 10px;
+}
+.saidbar::after{
+    content: "";
+    width: 100%;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,0.3);
+}
+.saidbar li{
+    width: 80%;
+    padding:10px 0px 10px 20px ;
+    background-color: #63ffb4;
+    margin-bottom:20px ;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius:20px ;
+}
+.DashbordTable{
+    width: calc(100%);
+    float: right;
+    color: white;
+    border: 1px solid;
+    text-align: center;
+    border-collapse:collapse ;
+    
+}
+.DashbordTable thead{
+    position: sticky;
+    top: calc(58px + var(--header));
+    border-collapse: collapse;
+    background-color: #1fc4a0;
+}
+.DashbordTable thead th{
+    padding: 10px 0px;
+}
+.DashbordTable tbody tr:nth-child(2n){
+    background-color: #333a45;
+    
+}
+.DashbordTable tbody tr:nth-child(2n+1){
+    background-color: #2f4f7f;
+    border: none;
+}
+.DashbordTable td{
+    padding: 20px 0px ;
+    border: none;
+}

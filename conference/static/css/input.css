@@ -1,0 +1,210 @@
+.connection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--mainColor);
+    width: 400px;
+    height: 300px;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding-bottom: 20px;
+}
+.connection h1{
+    margin-bottom: 10px;
+}
+.connection * {
+    flex-basis: 90%;
+    margin: 0 auto;
+}
+
+.boxinput {
+    width: 90%;
+    height: 50px;
+    position: relative;
+    margin-bottom: 15px; /* Ajout d'un espace entre les champs */
+}
+
+.boxinput input {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: #f7f7f7;
+    transition: border-color 0.3s ease;
+}
+.deconnection li i{
+    position: relative;
+  left: -46px;
+}
+
+.boxinput input:focus {
+    border-color: var(--mainColor); /* Couleur de la bordure au focus */
+}
+
+.boxinput span {
+    position: absolute;
+    z-index: 3;
+    bottom: 15px;
+    left: 10px;
+    color: #666;
+    pointer-events: none;
+    transition: 0.3s ease;
+    font-size: 17px;
+}
+.boxinput input:focus + span::after, 
+    .boxinput input:not(:placeholder-shown) + span::after {
+    position: absolute;
+    content: "";
+    height: 10px;
+    top: -4px;
+    transform: translateY(50%);
+    left: -4px;
+    height: 15px;
+    width: 100%;
+    background-color:#ddddddd2;
+    z-index: -1;
+    padding: 0px 0px 0px 3px;
+}
+/* Animation pour le label */
+.boxinput input:focus + span ,.boxinput input:not(:placeholder-shown) + span{
+    top: -10px;
+    color:  #333;
+}
+.boxinput .erreur{
+    z-index: 23;
+    color: red;
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+}
+.signUp{
+    width: 500px;
+    height: 300px;
+    margin-left:30px ;
+}
+.signUp.ajouterSession{
+    width: 600px;
+    height: 400px
+}
+.signUp.ajouterSession textarea{
+  width: 400px;
+  resize: none;
+  height: 80px;
+  border-radius: 10px;
+  background: #e9e9e9
+}
+.signUp.ajouterSession select{
+    margin-top: 40px;
+    padding: 6px 85px;
+}
+.signUp.ajouterSession span.select{
+    padding-left: 20px;
+}
+.signUp .boxSignUp{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.signUp .boxinput {
+    flex-basis: 40%;
+}
+.buttonInput{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 15px 40px;
+    background-color: var(--mainColor);
+}
+
+.info{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: white;
+    position: sticky;
+    top: var(--header);
+}
+.info .chercher{
+    height: 30px;
+    width: 300px;
+    margin-right: 40px;
+    border: 1px solid #333;
+    border-radius:30px ;
+    overflow: hidden;
+    padding-left: 10px;
+    background-color: #ccc;
+    position: relative;
+}
+.info .chercher input{
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    height: 100%;
+    width: 100%;
+}
+.info .chercher button{
+    height:105%;
+    width: 30px;
+    background-color: #ddd;
+    border: none;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+.info .ajouter{
+    background-color: var(--mainColor);
+    padding: 10px 30px ;
+    border-radius: 39px;
+    margin-left: 50px;
+}
+.icon {
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    color: #333;
+    top: 5px;
+  }
+.rien{
+    overflow: hidden;
+}
+
+
+.rien h1 {
+    position: relative;
+    overflow: hidden;
+    width: 700px;
+    height: 70px;
+    font-size: 61px;
+    margin-top: 51px;
+    color: rgba(255, 115, 0, 0.74);
+    font-weight: 900;
+    margin: 53px auto;
+    background: linear-gradient(90deg, red, rgb(243, 167, 26), rgba(141, 141, 28, 0.785), rgb(12, 152, 187), rgb(242, 0, 255), red,red, red,red, red,red);
+    background-size: 300%; /* Taille du dégradé plus grande que le texte */
+    background-clip: text;
+    -webkit-background-clip: text; /* Support pour Webkit */
+    color: transparent; /* Cache la couleur de base pour montrer uniquement le dégradé */
+    animation: colorText 3s linear infinite;
+}
+
+@keyframes colorText {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 100%;
+    }
+}

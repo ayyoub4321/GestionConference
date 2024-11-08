@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <title>Registre</title>
+</head>
+<body>
+    <form class="connection signUp" method="post">
+        {% csrf_token %}
+        {% if request.path|slice:':19' == '/ajouterIntervenant' %}
+        <h1>ajouter Intervenant</h1>
+        {% else %}
+         <h1>Registre </h1> 
+        {% endif %}
+        <div class="boxSignUp">
+            <input type="hidden" disabled name="idSession" value="{{session.id}}">
+            <div class="boxinput"><input type="text" name="name" placeholder=" " value="{% if request.path|slice:':20' == '/modifierIntervenant' %} {{session_intervenant.intervenant.name}} {% endif %}" ><span>Saisir votre nom</span></div>
+            <div class="boxinput"><input type="text" name="prenom" placeholder=" " value="{% if request.path|slice:':20' == '/modifierIntervenant' %} {{session_intervenant.intervenant.prenom}} {% endif %}"><span>Saisir prénom</span></div>
+            <div class="boxinput"><input type="text" name="email" placeholder=" " value="{% if request.path|slice:':20' == '/modifierIntervenant' %} {{session_intervenant.intervenant.email}} {% endif %}"><span>Saisir email</span></div>
+            {% if request.path|slice:':20' == '/modifierIntervenant' %}
+                <input type="hidden" name="id_intervenant" value="{{session_intervenant.intervenant.id}}">
+                <input type="hidden" name="id_session" value="{{session_intervenant.session.id}}">
+                <div class="boxinput"><input type="text" name="session" placeholder=" " {% if request.path|slice:':20' == '/modifierIntervenant' %} disabled value="{{session_intervenant.session.titre}}"  {{session_intervenant.intervenant.name}} {% endif %}><span>Session</span></div>
+            {% else  %}
+                <div class="boxinput"><input type="password" name="password" placeholder=" "><span>Saisir mot de passe</span></div>
+            {% endif %}
+        </div>
+        {% if request.path|slice:':19' == '/ajouterIntervenant' %}
+        <button class="buttonInput" type="submit">Enregistrer</button>
+        {% elif request.path|slice:':20' == '/modifierIntervenant' %}
+        <button class="buttonInput" type="submit">Modifier</button>
+        {% else %}
+       <button class="buttonInput" type="submit">Enregistrer</button>
+       <a href="{% url 'login' %}" class="signUp">Se connecter</a>
+       {% endif %}
+    </form>
+</body>
+</html>
